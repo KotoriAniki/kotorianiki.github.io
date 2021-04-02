@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Vue LESSON</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  </head>
+  <header>
+    <img src="https://jp.vuejs.org/images/logo.png"/>
+    <h1>Vue.jsの使い方</h1>
+  </header>
+
+  <body>
+    <div class="container">
+      <div class="section-heading">
+        <h1>ディレクティブ</h1>
+        <p>v-*といった具合に属性を指定する機能。カスタムディレクティブの定義も可能。</p>
+      </div>
+      <div>
+        <h2>二重波括弧でテキストを表示</h2>
+        <div class="info">
+          <h3>表示</h3>
+          <div id="app-1">{{ message }}</div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-1">{{ message }}&lt;/div>
+          </pre>
+          <h3>script</h3>
+          <pre>
+var app1 = new Vue({
+  el: "#app-1",
+  data: {message: "Hello World!"}
+})
+          </pre>
+          <h3>説明</h3>
+          <pre>
+Vue.jsが適用された範囲内では、{{message}}などと表記することで、
+JavaScript側で保持する変数の値に置き換えられる。
+          </pre>
+        </div>
+      </div>
+
+      <div>
+        <h2>v-textでテキストを表示する</h2>
+        <div class="info">
+          <h3>表示</h3>
+          <div id="app-101">
+            <div v-text="message"></div>
+          </div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-101"&gt;
+  &lt;div v-text="message"&gt;&lt;/div&gt;
+&lt;/div&gt;
+          </pre>
+          <h3>script</h3>
+          <pre>
+var app101 = new Vue({
+  el: "#app-101",
+  data: {message: "Hello!"}
+})
+          </pre>      
+        <h3>説明</h3>
+          <pre>
+{{}}と同じ役割。
+          </pre>
+        </div>
+      <div>
+        <h2>v-htmlでhtmlとして表示する</h2>
+        <div class="info">
+          <h3>表示</h3>
+          <div id="app-102">
+            <div v-html="message"></div>
+          </div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-102"&gt;
+  &lt;div v-html="message"&gt;&lt;/div&gt;
+&lt;/div&gt;
+          </pre>
+          <h3>script</h3>
+          <pre>
+var app102 = new Vue({
+  el: "#app-102",
+  data: {message: "&lt;b>Hello!&lt;/b>"}
+})
+          </pre>
+          <h3>説明</h3>
+          <pre>
+通常のテキストは<, >, &などは、&lt;, &gt;, &amp;に置換されて出力されるが、
+v-htmlでは置き換えをせずに出力する。
+ただしこれはセキュリティの面からも、クロスサイトスクリプティングに注意して
+使う必要がある。
+          </pre>
+        </div>
+      </div>
+
+      <div>
+        <h2>v-showで条件に応じて表示を制御する</h2>
+        <div class="info">
+          <h3>表示</h3>
+          <div id="app-103">
+            <input type="checkbox" @click="change" checked>
+            <span v-show="seen">Hello!</span>
+          </div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-103"&gt;
+  &lt;input type="checkbox" @click="change" checked&gt;
+  &lt;span v-show="seen"&gt;Hello!&lt;/span&gt;
+&lt;/div&gt;
+          </pre>
+          <h3>script</h3>
+          <pre>
+var app103 = new Vue({
+  el: "#app-103",
+  data: {seen: true},
+  methods: {
+    change: function(e) {
+      this.seen = e.target.checked
+    }
+  }
+})
+          </pre>      
+          <h3>説明</h3>
+          <pre>
+
+          </pre>
+        </div>
+      </div>
+
+      <div>
+        <h2>v-ifで条件に応じて表示を制御する</h2>
+        <div class="info">
+          <h3>表示</h3>
+          <div id="app-104">
+            <input type="checkbox" @click="change" checked>
+            <span v-if="seen">Hello!</span>
+          </div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-104"&gt;
+  &lt;input type="checkbox" @click="change" checked&gt;
+  &lt;span v-if="seen"&gt;Hello!&lt;/span&gt;
+&lt;/div&gt;
+          </pre>
+          <h3>script</h3>
+          <pre>
+var app104 = new Vue({
+  el: "#app-104",
+  data: {seen: true},
+  methods: {
+    change: function(e) {
+      this.seen = e.target.checked
+    }
+  }
+})
+          </pre>    
+          <h3>説明</h3>
+          <pre>
+
+          </pre>
+        </div>  
+      </div>
+
+      <div>
+        <h2>v-elseで条件に応じて表示を制御する</h2>
+        <div class="info">
+          <h3>表示</h3>
+          <div id="app-105">
+            <input type="checkbox" @click="change" checked>
+            <span v-if="seen">Hello!</span>
+            <span v-else>Bye!</span>
+          </div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-105"&gt;
+  &lt;input type="checkbox" @click="change" checked&gt;
+  &lt;span v-if="seen"&gt;Hello!&lt;/span&gt;
+  &lt;span v-else&gt;Bye!&lt;/span&gt;
+&lt;/div&gt;
+          </pre>
+          <h3>script</h3>
+          <pre>
+var app105 = new Vue({
+  el: "#app-105",
+  data: {seen: true},
+  methods: {
+    change: function(e) {
+      this.seen = e.target.checked
+    }
+  }
+})
+          </pre>      
+          <h3>説明</h3>
+          <pre>
+
+          </pre>
+        </div>
+      </div>
+
+      <div>
+        <h2>v-else-ifで条件に応じて表示を制御する</h2>
+        <div class="info">
+          <h3>表示</h3>
+          <div id="app-106">
+            <input type="radio" name="app106-type" onclick="app106.type='A'" checked>
+            <input type="radio" name="app106-type" onclick="app106.type='B'">
+            <input type="radio" name="app106-type" onclick="app106.type='C'">
+            <span v-if="type=='A'">Good morning.</span>
+            <span v-else-if="type=='B'">Hello!</span>
+            <span v-else>Bye!</span>
+          </div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-106"&gt;
+  &lt;input type="radio" name="app106-type" onclick="app106.type='A'" checked&gt;
+  &lt;input type="radio" name="app106-type" onclick="app106.type='B'"&gt;
+  &lt;input type="radio" name="app106-type" onclick="app106.type='C'"&gt;
+  &lt;span v-if="type=='A'"&gt;Good morning.&lt;/span&gt;
+  &lt;span v-else-if="type=='B'"&gt;Hello!&lt;/span&gt;
+  &lt;span v-else&gt;Bye!&lt;/span&gt;
+&lt;/div&gt;
+          </pre>
+          <h3>script</h3>
+          <pre>
+var app106 = new Vue({
+  el: "#app-106",
+  data: {type: 'A'}
+})
+          </pre>   
+          <h3>説明</h3>
+          <pre>
+
+          </pre>
+        </div>   
+      </div>
+
+      <div>
+        <h2>v-forでループする</h2>
+        <div class="info">
+          <h3>表示</h3>
+          <div id="app-107">
+            <ul>
+              <li v-for="color in colorList">{{color}}</li>
+            </ul>
+          </div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-107"&gt;
+  &lt;ul&gt;
+    &lt;li v-for="color in colorList"&gt;{{color}}&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+          </pre>
+          <h3>script</h3>
+          <pre>
+var app107 = new Vue({
+  el: "#app-107",
+  data: {colorList: ["Red", "Green", "Blue"]}
+})
+          </pre>     
+          <h3>説明</h3>
+          <pre>
+
+          </pre>
+        </div> 
+      </div>
+
+      <div>
+        <h2>v-on(@)でイベントを処理する</h2>
+        <h3>表示</h3>
+        <div class="info">
+          <div id="app-108">
+            <button v-on:click="hello">Hello</button>
+            <button @click="hello">Hello</button>
+          </div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-108"&gt;
+  &lt;button v-on:click="hello"&gt;Hello&lt;/button&gt;
+  &lt;button @click="hello"&gt;Hello&lt;/button&gt;
+&lt;/div&gt;
+          </pre>
+          <h3>script</h3>
+          <pre>
+var app108 = new Vue({
+  el: "#app-108",
+  methods: {
+    hello: function() {
+      alert("Hello!");
+    }
+  }
+})
+         </pre>     
+         <h3>説明</h3>
+          <pre>
+
+          </pre>
+        </div> 
+      </div>
+
+      <div>
+        <h2>v-bind(:)でHTMLの属性を指定する</h2>
+        <h3>表示</h3>
+        <div id="app-109">
+          <input type="button" v-bind:value="message">
+          <input type="button" :value="message">
+        </div>
+        <h3>HTML</h3>
+        <pre>
+&lt;div id="app-109"&gt;
+  &lt;input type="button" v-bind:value="message"&gt;
+  &lt;input type="button" :value="message"&gt;
+&lt;/div&gt;
+        </pre>
+        <h3>script</h3>
+        <pre>
+var app109 = new Vue({
+  el: "#app-109",
+  data: {message: "Hello!"}
+})
+        </pre>      
+    </div>
+
+      <div>
+        <h2>v-modelで入力フォームにモデルを割り当てる</h2>
+        <h3>表示</h3>
+        <div id="app-120">
+          <input v-model="message">
+          <div>Message: {{message}}</div>
+        </div>
+        <h3>HTML</h3>
+        <pre>
+&lt;div id="app-120"&gt;
+  &lt;input v-model="message"&gt;
+  &lt;div&gt;Message: {{message}}&lt;/div&gt;
+&lt;/div&gt;
+        </pre>
+        <h3>script</h3>
+        <pre>
+var app120 = new Vue({
+  el: "#app-120",
+  data: {message: "Hello!"}
+})
+        </pre>      
+      </div>
+
+      <div>
+        <h2>v-preでテキストをそのまま出力する</h2>
+        <h3>表示</h3>
+        <div id="app-121">
+          <div v-pre>Message: {{message}}</div>
+          <div>Message: {{ message }}</div>
+        </div>
+        <h3>HTML</h3>
+        <pre>
+&lt;div id="app-121"&gt;
+  &lt;div v-pre&gt;Message: {{message}}&lt;/div&gt;
+  &lt;div&gt;Message: {{ message }}&lt;/div&gt;
+&lt;/div&gt;
+        </pre>
+        <h3>script</h3>
+        <pre>
+var app121 = new Vue({
+  el: "#app-121",
+  data: {message: "Hello"}
+})
+        </pre>      
+      </div>
+
+        <div>
+          <h2>v-cloakで二重波括弧の表示を防ぐ</h2>
+          <h3>表示</h3>
+          <style>
+            [v-cloak] { display: none }
+          </style>
+          <div id="app-122">
+            <button onclick="location.reload()">再表示</button>
+            <div>Message: <span v-cloak>{{message}}</spna></div>
+            <div>Message: <span>{{message}}</spna></div>
+          </div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-122"&gt;
+  &lt;button onclick="location.reload()"&gt;&#20877;&#34920;&#31034;&lt;/button&gt;
+  &lt;div&gt;Message: &lt;span v-cloak&gt;{{message}}&lt;/spna&gt;&lt;/div&gt;
+  &lt;div&gt;Message: &lt;span&gt;{{message}}&lt;/spna&gt;&lt;/div&gt;
+&lt;/div&gt;
+          </pre>
+          <h3>script</h3>
+          <pre>
+window.setTimeout(function() {
+  var app122 = new Vue({
+    el: "#app-122",
+    data: {message: "Hello!"}
+  })
+}, 1000)
+          </pre>      
+        </div>
+
+        <div>
+          <h2>v-onceで一度だけ表示する</h2>
+          <h3>表示</h3>
+          <div id="app-123">
+            <input type="text" v-model:value="message">
+            <div>Message: <span v-once>{{message}}</span></div>
+            <div>Message: <span>{{message}}</span></div>
+          </div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-123"&gt;
+  &lt;input type="text" v-model:value="message"&gt;
+  &lt;div&gt;Message: &lt;span v-once&gt;{{message}}&lt;/span&gt;&lt;/div&gt;
+  &lt;div&gt;Message: &lt;span&gt;{{message}}&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+          </pre>
+          <h3>script</h3>
+          <pre>
+var app123 = new Vue({
+  el: "#app-123",
+  data: {message: "Hello"}
+})
+          </pre>      
+        </div>
+
+        <div>
+          <h2>コンポーネントで独自要素を定義する(Vue.component())</h2>
+          <h3>表示</h3>
+          <div id="app-140">
+            <my-element-140></my-element-140>
+          </div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-140"&gt;
+  &lt;my-element-140&gt;&lt;/my-element-140&gt;
+&lt;/div&gt;
+          </pre>
+          <h3>script</h3>
+          <pre>
+Vue.component('my-element-140', {
+  template: '&lt;strong&gt;Hello&lt;/strong&gt;'
+})
+var app140 = new Vue({
+  el: '#app-140',
+})
+          </pre>      
+        </div>
+
+        <div>
+          <h2>コンポーネントのサブクラスを生成する(Vue.extend())</h2>
+          <h3>表示</h3>
+          <div id="app-">
+            <div id="app-141">
+              <my-component-141></my-component-141>
+            </div>
+          </div>
+          <h3>HTML</h3>
+          <pre>
+&lt;div id="app-141"&gt;
+  &lt;my-component-141&gt;&lt;/my-component-141&gt;
+&lt;/div&gt;
+          </pre>
+          <h3>script</h3>
+          <pre>
+var MyComponent141 = Vue.extend({
+  template: "&lt;strong&gt;Hello!&lt;/strong&gt;"
+})
+Vue.component("my-component-141", MyComponent141)
+var app141 = new Vue({
+  el: "#app-141",
+})
+          </pre>      
+        </div>
+
+        <!--<div>
+          <h2>タイトル</h2>
+          <h3>表示</h3>
+          <div id="app-">
+            
+          </div>
+          <h3>HTML</h3>
+          <pre>
+
+          </pre>
+          <h3>script</h3>
+          <pre>
+
+          </pre>      
+        </div>
+
+        <div>
+          <h2>タイトル</h2>
+          <h3>表示</h3>
+          <div id="app-">
+            
+          </div>
+          <h3>HTML</h3>
+          <pre>
+
+          </pre>
+          <h3>script</h3>
+          <pre>
+
+          </pre>      
+        </div>
+        
+        <div>
+          <h2>タイトル</h2>
+          <h3>表示</h3>
+          <div id="app-">
+            
+          </div>
+          <h3>HTML</h3>
+          <pre>
+
+          </pre>
+          <h3>script</h3>
+          <pre>
+
+          </pre>      
+        </div>
+        
+        <div>
+          <h2>タイトル</h2>
+          <h3>表示</h3>
+          <div id="app-">
+            
+          </div>
+          <h3>HTML</h3>
+          <pre>
+
+          </pre>
+          <h3>script</h3>
+          <pre>
+
+          </pre>      
+        </div>
+        
+        <div>
+          <h2>タイトル</h2>
+          <h3>表示</h3>
+          <div id="app-">
+            
+          </div>
+          <h3>HTML</h3>
+          <pre>
+
+          </pre>
+          <h3>script</h3>
+          <pre>
+
+          </pre>      
+        </div>
+        -->
+        
+      </div>
+    </div>
+
+    
+  
+    <script>
+      var app1 = new Vue({
+        el: "#app-1",
+        data: {
+          message: "Hello World!"
+        }
+      })
+      var app101 = new Vue({
+        el: "#app-101",
+        data: {
+          message: "Hello!"
+        }
+      })
+      var app102 = new Vue({
+        el: "#app-102",
+        data: {
+          message: "<b>Hello!</b>"
+        }
+      })
+      var app103 = new Vue({
+        el: "#app-103",
+        data: {
+          seen: true
+        },
+        methods: {
+          change: function(e) {
+            this.seen = e.target.checked
+          }
+        }
+      })
+      var app104 = new Vue({
+        el: "#app-104",
+        data: {
+          seen: true
+        },
+        methods: {
+          change: function(e) {
+            this.seen = e.target.checked
+          }
+        }
+      })
+      var app105 = new Vue({
+        el: "#app-105",
+        data: {
+          seen: true
+        },
+        methods: {
+          change: function(e) {
+            this.seen = e.target.checked
+          }
+        }
+      })
+      var app106 = new Vue({
+        el: "#app-106",
+        data: {type: 'A'}
+      })
+      var app107 = new Vue({
+        el: "#app-107",
+        data: {colorList: ["Red", "Green", "Blue"]}
+      })
+      var app108 = new Vue({
+        el: "#app-108",
+        methods: {
+          hello: function() {
+            alert("Hello!");
+          }
+        }
+      })
+      var app109 = new Vue({
+        el: "#app-109",
+        data: {message: "Hello!"}
+      })
+      var app120 = new Vue({
+        el: "#app-120",
+        data: {message: "Hello!"}
+      })
+      var app121 = new Vue({
+        el: "#app-121",
+        data: {message: "Hello"}
+      })
+      window.setTimeout(function() {
+        var app122 = new Vue({
+          el: "#app-122",
+          data: {message: "Hello!"}
+        })
+      }, 1000)
+      var app123 = new Vue({
+        el: "#app-123",
+        data: {message: "Hello"}
+      })
+      Vue.component('my-element-140', {
+        template: '<strong>Hello</strong>'
+      })
+      var app140 = new Vue({
+        el: '#app-140',
+      })
+      var MyComponent141 = Vue.extend({
+        template: "<strong>Hello!</strong>"
+      })
+      Vue.component("my-component-141", MyComponent141)
+      var app141 = new Vue({
+        el: "#app-141",
+      })
+    </script>
+  </body>
+
+</html>
